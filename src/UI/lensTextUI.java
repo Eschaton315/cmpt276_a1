@@ -62,8 +62,6 @@ public class lensTextUI {
                         double depthField=farFocalPoint-nearFocalPoint;
                         System.out.println(" In Focus: "+formatM(nearFocalPoint/1000)+"m ~ "+formatM(farFocalPoint/1000)+"m [DoF = "+formatM(depthField/1000)+"m]");
                         System.out.println(" Hyperfocal point: "+(formatM(hyperFocalDist/1000))+"m");
-
-
                     }
                 }
 
