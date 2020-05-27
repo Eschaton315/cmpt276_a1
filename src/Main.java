@@ -9,8 +9,10 @@ public class Main {
             }
 
             test++;
+            System.out.println("also count is "+count);
         }
         System.out.println("test="+test);
+        System.out.println("...");
     }
 
 }
