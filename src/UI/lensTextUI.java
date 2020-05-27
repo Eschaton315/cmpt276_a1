@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class lensTextUI {
     private lensManager manager;
+    double aperture;
+    double distance;
 
     public lensTextUI(lensManager manager) {
         this.manager = manager;
@@ -18,7 +20,7 @@ public class lensTextUI {
             System.out.println(" Set Lens:\n");
             int choice = 1;
             for(lens Lens : manager) {
-                System.out.println(" "+choice+":"+Lens.getName()+"\t"+Lens.getMaxAperture()+"mm\tF"+Lens.getFocalLength());
+                System.out.println(" "+choice+":"+Lens.getName()+"\tF"+Lens.getMaxAperture()+"\t"+Lens.getFocalLength()+"mm");
                 choice++;
             }
             System.out.println("\n-1:Quit");
@@ -30,19 +32,36 @@ public class lensTextUI {
                     if(Lens.getItemNum()==userChoice){
                         //set aperture using the pass boolean to see whether a correct value was inputted
                         while (!pass) {
-                            System.out.println("Set Aperture:\nMax = " + Lens.getMaxAperture());
-                            double aperture = in.nextDouble();
-                            System.out.println("aperture = " + aperture + "Dead End");
-                            if (aperture > Lens.getMaxAperture()) {
+                            System.out.println("Set Aperture (F Number):\nMax = F" + Lens.getMaxAperture());
+                            aperture = in.nextDouble();
+                            if (aperture < Lens.getMaxAperture()) {
                                 System.out.println("CANNOT EXCEED MAX VALUE");
-                            }else if(aperture < 0){
-                                System.out.println("INVALID VALUE");
+                            }else if(aperture > 22){
+                                System.out.printf("INVALID VALUE\n\n.............\n\n");
                             }else{
                                 pass=true;
                             }
                         }
                         //set distance using pass boolean to  check whether a correct value was inputted
                         pass = false;
+                        while (!pass) {
+                            System.out.println("Set Distance To Subject(m):");
+                            distance = in.nextDouble();
+                            if (distance <= 0) {
+                                System.out.printf("INVALID VALUE\n\n.............\n\n");
+                            } else {
+                                pass = true;
+                            }
+                        }
+                        //calculating DoF
+                        double hyperFocalDist=((Math.pow(Lens.getFocalLength(),2))/(0.029 * aperture));
+                        double nearFocalPoint=((hyperFocalDist*(distance*1000))/(hyperFocalDist+((distance*1000)-Lens.getFocalLength())));
+                        double farFocalPoint;
+                        if((distance*1000)>hyperFocalDist) farFocalPoint = Double.POSITIVE_INFINITY;
+                        else  farFocalPoint=((hyperFocalDist*(distance*1000))/(hyperFocalDist-((distance*1000)-Lens.getFocalLength())));
+                        double depthField=farFocalPoint-nearFocalPoint;
+                        System.out.println(" In Focus: "+formatM(nearFocalPoint/1000)+"m ~ "+formatM(farFocalPoint/1000)+"m [DoF = "+formatM(depthField/1000)+"m]");
+                        System.out.println(" Hyperfocal point: "+(formatM(hyperFocalDist/1000))+"m");
 
 
                     }
@@ -61,5 +80,7 @@ public class lensTextUI {
         DecimalFormat df = new DecimalFormat("0.00");
         return df.format(distanceInM);
     }
+
+
 }
 
