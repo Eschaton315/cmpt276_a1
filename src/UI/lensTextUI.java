@@ -15,8 +15,8 @@ public class lensTextUI {
     }
     public void show() {
         boolean finish = false;
-        boolean pass = false;
         while (!finish) {
+            boolean pass = false;
             System.out.println(" Set Lens:\n");
             int choice = 1;
             for(lens Lens : manager) {
@@ -31,37 +31,30 @@ public class lensTextUI {
                 for(lens Lens: manager){
                     if(Lens.getItemNum()==userChoice){
                         //set aperture using the pass boolean to see whether a correct value was inputted
-                        while (!pass) {
                             System.out.println("Set Aperture (F Number):\nMax = F" + Lens.getMaxAperture());
                             aperture = in.nextDouble();
                             if (aperture < Lens.getMaxAperture()) {
-                                System.out.println("CANNOT EXCEED MAX VALUE");
+                                System.out.println("CANNOT EXCEED MAX F VALUE");
                             }else if(aperture > 22){
                                 System.out.printf("INVALID VALUE\n\n.............\n\n");
                             }else{
-                                pass=true;
+                                //set distance n  check whether a correct value was inputted
+                                System.out.println("Set Distance To Subject(m):");
+                                distance = in.nextDouble();
+                                if (distance <= 0) {
+                                    System.out.printf("INVALID DISTANCE\n\n.............\n\n");
+                                } else {
+                                    //calculating DoF
+                                    double hyperFocalDist=((Math.pow(Lens.getFocalLength(),2))/(0.029 * aperture));
+                                    double nearFocalPoint=((hyperFocalDist*(distance*1000))/(hyperFocalDist+((distance*1000)-Lens.getFocalLength())));
+                                    double farFocalPoint;
+                                    if((distance*1000)>hyperFocalDist) farFocalPoint = Double.POSITIVE_INFINITY;
+                                    else  farFocalPoint=((hyperFocalDist*(distance*1000))/(hyperFocalDist-((distance*1000)-Lens.getFocalLength())));
+                                    double depthField=farFocalPoint-nearFocalPoint;
+                                    System.out.println(" In Focus: "+formatM(nearFocalPoint/1000)+"m ~ "+formatM(farFocalPoint/1000)+"m [DoF = "+formatM(depthField/1000)+"m]");
+                                    System.out.println(" Hyperfocal point: "+(formatM(hyperFocalDist/1000))+"m");
+                                }
                             }
-                        }
-                        //set distance using pass boolean to  check whether a correct value was inputted
-                        pass = false;
-                        while (!pass) {
-                            System.out.println("Set Distance To Subject(m):");
-                            distance = in.nextDouble();
-                            if (distance <= 0) {
-                                System.out.printf("INVALID VALUE\n\n.............\n\n");
-                            } else {
-                                pass = true;
-                            }
-                        }
-                        //calculating DoF
-                        double hyperFocalDist=((Math.pow(Lens.getFocalLength(),2))/(0.029 * aperture));
-                        double nearFocalPoint=((hyperFocalDist*(distance*1000))/(hyperFocalDist+((distance*1000)-Lens.getFocalLength())));
-                        double farFocalPoint;
-                        if((distance*1000)>hyperFocalDist) farFocalPoint = Double.POSITIVE_INFINITY;
-                        else  farFocalPoint=((hyperFocalDist*(distance*1000))/(hyperFocalDist-((distance*1000)-Lens.getFocalLength())));
-                        double depthField=farFocalPoint-nearFocalPoint;
-                        System.out.println(" In Focus: "+formatM(nearFocalPoint/1000)+"m ~ "+formatM(farFocalPoint/1000)+"m [DoF = "+formatM(depthField/1000)+"m]");
-                        System.out.println(" Hyperfocal point: "+(formatM(hyperFocalDist/1000))+"m");
                     }
                 }
 
