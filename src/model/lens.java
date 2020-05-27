@@ -5,12 +5,13 @@ public class lens {
     private String name;
     private double maxAperture;
     private int focalLength;
+    private int itemNum;
 
-    public lens(String Name,double maxApe,int fLength){
+    public lens(String Name,double maxApe,int fLength,int itemNum){
         this.name = Name;
         this.maxAperture = maxApe;
         this.focalLength = fLength;
-
+        this.itemNum = itemNum;
     }
 
     public String getName() {
@@ -25,5 +26,9 @@ public class lens {
 
     public int getFocalLength() {
         return focalLength;
+    }
+
+    public int getItemNum(){
+        return itemNum;
     }
 }

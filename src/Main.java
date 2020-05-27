@@ -10,15 +10,13 @@ public class Main {
                 lensManager manager = new lensManager();
 
 
-        manager.add(new lens("Canon", 1.8, 50));
-        manager.add(new lens("Tamron", 2.8, 90));
-        manager.add(new lens("Sigma", 2.8, 200));
-        manager.add(new lens("Nikon", 4, 200));
+        manager.add(new lens("Canon", 1.8, 50,1));
+        manager.add(new lens("Tamron", 2.8, 90,2));
+        manager.add(new lens("Sigma", 2.8, 200,3));
+        manager.add(new lens("Nikon", 4, 200,4));
 
         lensTextUI ui = new lensTextUI(manager);
         ui.show();
-
-
 
 
     }
