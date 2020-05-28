@@ -23,6 +23,7 @@ public class lensTextUI {
                 System.out.println(" "+choice+":"+Lens.getName()+"\tF"+Lens.getMaxAperture()+"\t"+Lens.getFocalLength()+"mm");
                 choice++;
             }
+
             System.out.println("\n-1:Quit");
             Scanner in = new Scanner (System.in);
             int userChoice = in.nextInt();
