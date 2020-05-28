@@ -9,7 +9,7 @@ public class Main {
 
                 lensManager manager = new lensManager();
 
-
+//populate the lens list
         manager.add(new lens("Canon", 1.8, 50,1));
         manager.add(new lens("Tamron", 2.8, 90,2));
         manager.add(new lens("Sigma", 2.8, 200,3));
