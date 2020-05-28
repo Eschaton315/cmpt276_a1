@@ -52,7 +52,7 @@ public class lensTextUI {
                                     if((distance*1000)>hyperFocalDist) farFocalPoint = Double.POSITIVE_INFINITY;
                                     else  farFocalPoint=((hyperFocalDist*(distance*1000))/(hyperFocalDist-((distance*1000)-Lens.getFocalLength())));
                                     double depthField=farFocalPoint-nearFocalPoint;
-
+                                    //output text
                                     System.out.println(" In Focus: "+formatM(nearFocalPoint/1000)+"m ~ "+formatM(farFocalPoint/1000)+"m [DoF = "+formatM(depthField/1000)+"m]");
                                     System.out.println(" Hyperfocal point: "+(formatM(hyperFocalDist/1000))+"m");
                                 }
