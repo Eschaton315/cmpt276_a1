@@ -11,7 +11,6 @@ public class lensManager implements  Iterable<lens>{
       lens.add(Lens);
     }
 
-
     @Override
     public Iterator<model.lens> iterator() {
         return lens.iterator();

@@ -22,8 +22,6 @@ public class lens {
         return maxAperture;
     }
 
-
-
     public int getFocalLength() {
         return focalLength;
     }
